@@ -284,6 +284,7 @@ const ModerationToolSpain = () => {
     setShiftStartTime(new Date());
     setShiftRunning(true);
   };
+  const resumeShift = () => setShiftRunning(true);
   const stopShift = () => setShiftRunning(false);
   const resetShift = () => { setShiftRunning(false); setShiftSeconds(0); setShiftStartTime(null); };
 
@@ -356,7 +357,7 @@ const ModerationToolSpain = () => {
                 <button onClick={stopShift} className="px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg font-semibold text-sm">Pause</button>
               )}
               {!shiftRunning && shiftSeconds > 0 && (
-                <button onClick={startShift} className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold text-sm">Resume</button>
+                <button onClick={resumeShift} className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold text-sm">Resume</button>
               )}
               {shiftSeconds > 0 && (
                 <button onClick={resetShift} className={`px-4 py-2 rounded-lg font-semibold text-sm ${darkMode ? 'bg-slate-700 hover:bg-slate-600 text-slate-200' : 'bg-slate-200 hover:bg-slate-300 text-slate-700'}`}>Reset</button>
