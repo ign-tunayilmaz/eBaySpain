@@ -1,16 +1,16 @@
 # Fix white screen / 404 for main.tsx
 
-If you see a **white screen** and the browser console shows **404 for main.tsx**, GitHub Pages is serving the **source code** instead of the **built** site.
+If you see a **white screen** and **404 for main.tsx**, GitHub is serving the **source** instead of the **built** site.
 
-## Fix (one-time)
+## Setup (one-time)
 
-1. Open your repo on GitHub: **ign-tunayilmaz/eBaySpain** (or your fork).
-2. Go to **Settings** → **Pages**.
-3. Under **Build and deployment** → **Source**, select **"GitHub Actions"** (not "Deploy from a branch").
-4. Save. No need to choose a branch.
+This repo uses a **gh-pages branch**: the workflow builds the app and pushes the built files to `gh-pages`. You must tell GitHub Pages to serve that branch.
 
-After that, every push to `main` will run the workflow, build the app, and deploy the built files. The site will load correctly at:
+1. Open **ign-tunayilmaz/eBaySpain** on GitHub → **Settings** → **Pages**.
+2. Under **Build and deployment** → **Source**, choose **"Deploy from a branch"**.
+3. **Branch**: select **gh-pages**. **Folder**: leave as **/ (root)**. Save.
+4. Go to the **Actions** tab → run **"Deploy to GitHub Pages"** once (Run workflow). Wait until it finishes (green check).
+
+The workflow creates/updates the `gh-pages` branch with the built site. Once Pages is set to that branch, the site will work at:
 
 **https://ign-tunayilmaz.github.io/eBaySpain/**
-
-If Source is set to "Deploy from a branch" and branch `main`, GitHub serves the raw repo (including `index.html` that references `/src/main.tsx`). That file is not published, so you get 404 and a white screen.

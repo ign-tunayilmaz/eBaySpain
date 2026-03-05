@@ -30,7 +30,7 @@ npm run preview
 
 ## GitHub Pages (evitar pantalla en blanco)
 
-**Importante:** En **Settings → Pages** del repositorio, el **Source** debe ser **"GitHub Actions"**, no "Deploy from a branch". Si está en "Deploy from a branch", verás pantalla en blanco y 404 para `main.tsx`. Tras cambiarlo a GitHub Actions, la URL será: `https://<usuario>.github.io/eBaySpain/`. Ver [DEPLOYMENT.md](DEPLOYMENT.md) para más detalles.
+**Importante:** En **Settings → Pages** del repositorio, elige **Source: "Deploy from a branch"**, **Branch: gh-pages**, **Folder: / (root)**. El workflow sube la versión compilada a la rama `gh-pages`. Si usas la rama `main`, verás pantalla en blanco y 404 para `main.tsx`. URL: `https://<usuario>.github.io/eBaySpain/`. Ver [DEPLOYMENT.md](DEPLOYMENT.md).
 
 ## Stack
 
