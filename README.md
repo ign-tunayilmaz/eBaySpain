@@ -30,7 +30,7 @@ npm run preview
 
 ## GitHub Pages
 
-En **Settings → Pages** del repositorio, configura **Source** en **"GitHub Actions"**. Tras cada push a `main` se desplegará la versión compilada. URL típica: `https://<usuario>.github.io/ebay-tool-spain/`.
+En **Settings → Pages** del repositorio, configura **Source** en **"GitHub Actions"**. Tras cada push a `main` se desplegará la versión compilada. URL típica: `https://<usuario>.github.io/eBaySpain/`.
 
 ## Stack
 
