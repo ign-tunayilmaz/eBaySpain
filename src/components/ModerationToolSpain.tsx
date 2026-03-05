@@ -325,7 +325,7 @@ const ModerationToolSpain = () => {
               <p className={text2}>Quick reference guide with ready-to-use templates</p>
             </div>
             <div className="flex items-center gap-3">
-              <a href="https://community.ebay.es/" target="_blank" rel="noopener noreferrer" className="px-4 py-2 rounded-lg font-semibold text-sm bg-yellow-500 hover:bg-yellow-600 text-white">Go to eBay ES</a>
+              <a href="https://comunidad.ebay.es/" target="_blank" rel="noopener noreferrer" className="px-4 py-2 rounded-lg font-semibold text-sm bg-yellow-500 hover:bg-yellow-600 text-white">Go to eBay ES</a>
               <button onClick={() => setDarkMode(!darkMode)} className={`px-4 py-2 rounded-lg font-semibold text-sm flex items-center gap-2 ${darkMode ? 'bg-slate-700 hover:bg-slate-600 text-slate-200' : 'bg-slate-200 hover:bg-slate-300 text-slate-700'}`}>
                 {darkMode ? <><Sun className="w-5 h-5" /><span>Light</span></> : <><Moon className="w-5 h-5" /><span>Dark</span></>}
               </button>
