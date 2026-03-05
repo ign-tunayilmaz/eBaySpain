@@ -28,9 +28,9 @@ npm run build
 npm run preview
 ```
 
-## GitHub Pages
+## GitHub Pages (evitar pantalla en blanco)
 
-En **Settings → Pages** del repositorio, configura **Source** en **"GitHub Actions"**. Tras cada push a `main` se desplegará la versión compilada. URL típica: `https://<usuario>.github.io/eBaySpain/`.
+**Importante:** En **Settings → Pages** del repositorio, el **Source** debe ser **"GitHub Actions"**, no "Deploy from a branch". Si está en "Deploy from a branch", verás pantalla en blanco y 404 para `main.tsx`. Tras cambiarlo a GitHub Actions, la URL será: `https://<usuario>.github.io/eBaySpain/`. Ver [DEPLOYMENT.md](DEPLOYMENT.md) para más detalles.
 
 ## Stack
 
