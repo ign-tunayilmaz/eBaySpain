@@ -18,8 +18,10 @@ const ModerationToolSpain = () => {
   const [shiftStartTime, setShiftStartTime] = useState<Date | null>(null);
 
   const [templateInputs, setTemplateInputs] = useState({
-    removePost: { name: '', topicUrl: '', topic: '', grundsatz: '', beitrag: '' },
-    editPost: { name: '', topicUrl: '', topic: '', grundsatz: '', beitrag: '' },
+    friendlyEditPost: { username: '', title: '', guidelines: '', quote: '' },
+    warningEditPost: { username: '', title: '', guidelines: '', quote: '' },
+    friendlyRemovePost: { username: '', title: '', dateTime: '', guidelines: '', quote: '' },
+    warningRemovePost: { username: '', title: '', dateTime: '', guidelines: '', quote: '' },
     csRedirect: { username: '' },
     banCombined: { banPeriod: '1 Day', reasoning: '', username: '', email: '', ip: '', spamUrl: '', startDate: '' }
   });
@@ -30,8 +32,10 @@ const ModerationToolSpain = () => {
   });
 
   const defaultTemplateInputs = {
-    removePost: { name: '', topicUrl: '', topic: '', grundsatz: '', beitrag: '' },
-    editPost: { name: '', topicUrl: '', topic: '', grundsatz: '', beitrag: '' },
+    friendlyEditPost: { username: '', title: '', guidelines: '', quote: '' },
+    warningEditPost: { username: '', title: '', guidelines: '', quote: '' },
+    friendlyRemovePost: { username: '', title: '', dateTime: '', guidelines: '', quote: '' },
+    warningRemovePost: { username: '', title: '', dateTime: '', guidelines: '', quote: '' },
     csRedirect: { username: '' },
     banCombined: { banPeriod: '1 Day', reasoning: '', username: '', email: '', ip: '', spamUrl: '', startDate: '' }
   };
@@ -62,8 +66,10 @@ const ModerationToolSpain = () => {
         setTemplateInputs({
           ...defaultTemplateInputs,
           ...parsed,
-          removePost: { ...defaultTemplateInputs.removePost, ...parsed?.removePost },
-          editPost: { ...defaultTemplateInputs.editPost, ...parsed?.editPost },
+          friendlyEditPost: { ...defaultTemplateInputs.friendlyEditPost, ...parsed?.friendlyEditPost },
+          warningEditPost: { ...defaultTemplateInputs.warningEditPost, ...parsed?.warningEditPost },
+          friendlyRemovePost: { ...defaultTemplateInputs.friendlyRemovePost, ...parsed?.friendlyRemovePost },
+          warningRemovePost: { ...defaultTemplateInputs.warningRemovePost, ...parsed?.warningRemovePost },
           csRedirect: { ...defaultTemplateInputs.csRedirect, ...parsed?.csRedirect },
           banCombined: { ...defaultTemplateInputs.banCombined, ...parsed?.banCombined }
         });
@@ -89,16 +95,18 @@ const ModerationToolSpain = () => {
 
   // ─── SPANISH USER-FACING MESSAGE TEMPLATES (eBay España) ───────────────────
   const templates: Record<string, string> = {
-    removePost: `<p>Hola [NOMBRE],</p><br /><p>Te informamos de que tu mensaje: <a href="[URL_TEMA]">[TEMA]</a>, ha sido eliminado por incumplir nuestra <a href="https://www.ebay.es/ayuda/politicas/normas-conducta-miembros/idioma-es?id=4361">Netiqueta de la Comunidad</a>.</p><p>En la publicación de mensajes y contenidos en eBay no está permitido, en particular:</p><p>[PRINCIPIO_CITAR]</p><br /><p>[CONTENIDO]</p><br /><p>Puedes consultar las normas de la Comunidad en cualquier momento aquí:</p><p><a href="https://www.ebay.es/ayuda/politicas/normas-conducta-miembros/idioma-es?id=4361">Normas de publicación de contenidos</a></p><br /><p>Puedes publicar un mensaje revisado. Tus aportaciones son importantes para eBay y para el resto de miembros del foro.</p><br /><p>Para consultas o para aclarar la decisión de moderación, contacta con contactcommunity@ebay.com.</p><p>Un saludo,</p><br /></p>`,
-    editPost: `<p>Hola [NOMBRE],</p><br /><p>Te informamos de que tu mensaje: <a href="[URL_TEMA]">[TEMA]</a>, ha sido editado por incumplir nuestra <a href="https://www.ebay.es/ayuda/politicas/normas-conducta-miembros/idioma-es?id=4361">Netiqueta de la Comunidad</a>.</p><p>En la publicación de mensajes y contenidos en eBay no está permitido, en particular:</p><p>[PRINCIPIO_CITAR]</p><br /><p>[CONTENIDO]</p><br /><p>Puedes consultar las normas de la Comunidad en cualquier momento aquí:</p><p><a href="https://www.ebay.es/ayuda/politicas/normas-conducta-miembros/idioma-es?id=4361">Normas de publicación de contenidos</a></p><br /><p>Nuestras normas buscan que todos los miembros puedan utilizar el foro con normalidad. Agradecemos tu participación.</p><br /><p>Para consultas o para aclarar la decisión de moderación, contacta con contactcommunity@ebay.com.</p><p>Un saludo,</p></p>`,
-    necroThread: 'Hola a todos,\n\nDebido a la antigüedad de este hilo, se ha cerrado a nuevas respuestas. Puedes abrir un nuevo hilo si quieres seguir debatiendo este tema.\n\nGracias por tu comprensión.',
+    friendlyEditPost: 'Hola {{USERNAME}},\n\nEste es un aviso amistoso de moderación para informarte de que tu publicación reciente, "{{TITLE}}", ha sido editada porque infringía las siguientes Normas de la Comunidad de eBay:\n\n{{GUIDELINES}}\n\nTu publicación fue editada para eliminar lo siguiente:\n\n"{{QUOTE}}"\n\nPor favor, tómate un momento para revisar las Normas de la Comunidad y así evitar cometer el mismo error en el futuro.\n\nGracias por tu colaboración para mantener la Comunidad como un lugar acogedor, útil y respetuoso para todos los usuarios.\n\n— El Equipo de Moderación de la Comunidad de eBay',
+    warningEditPost: 'Hola {{USERNAME}},\n\nEste es un aviso oficial de moderación para informarte de que tu publicación reciente, "{{TITLE}}", ha sido editada porque infringía las siguientes Normas de la Comunidad de eBay:\n\n{{GUIDELINES}}\n\nTu publicación fue editada para eliminar lo siguiente:\n\n"{{QUOTE}}"\n\nPor favor, tómate un momento para revisar las Normas de la Comunidad y así evitar cometer el mismo error en el futuro.\n\nGracias por tu colaboración para mantener la Comunidad como un lugar acogedor, útil y respetuoso para todos los usuarios.\n\n— El Equipo de Moderación de la Comunidad de eBay',
+    friendlyRemovePost: 'Hola {{USERNAME}},\n\nEste es un aviso amistoso de moderación para informarte de que tu publicación reciente, "{{TITLE}}", de {{DATE_TIME}} ha sido eliminada porque infringía las siguientes Normas de la Comunidad de eBay:\n\n{{GUIDELINES}}\n\nPublicaste lo siguiente:\n\n"{{QUOTE}}"\n\nPor favor, tómate un momento para revisar las Normas de la Comunidad y así evitar cometer el mismo error en el futuro.\n\nGracias por tu colaboración para mantener la Comunidad como un lugar acogedor, útil y respetuoso para todos los usuarios.\n\n— El Equipo de Moderación de la Comunidad de eBay',
+    warningRemovePost: 'Hola {{USERNAME}},\n\nEste es un aviso oficial de moderación para informarte de que tu publicación reciente, "{{TITLE}}", de {{DATE_TIME}} ha sido eliminada porque infringía las siguientes Normas de la Comunidad de eBay:\n\n{{GUIDELINES}}\n\nPublicaste lo siguiente:\n\n"{{QUOTE}}"\n\nPor favor, tómate un momento para revisar las Normas de la Comunidad y así evitar cometer el mismo error en el futuro.\n\nGracias por tu colaboración para mantener la Comunidad como un lugar acogedor, útil y respetuoso para todos los usuarios.\n\n— El Equipo de Moderación de la Comunidad de eBay',
+    necroThread: 'Hola a todos, Debido a la antigüedad de este hilo, se ha cerrado a nuevas respuestas. No dudéis en abrir un nuevo hilo si queréis seguir hablando sobre este tema. Gracias por vuestra comprensión.',
     opRequest: 'Hola a todos,\n\nEste hilo se ha cerrado a petición del autor del mensaje original.\n\nGracias por tu comprensión.',
     lockingOffTopic: 'Hola a todos,\n\nAgradecemos vuestra participación en esta conversación. Sin embargo, el debate se ha desviado del tema y se ha caldeado. Para mantener la comunidad acogedora y constructiva para todos, cerramos este hilo a nuevas respuestas.\n\nRecordad mantener los debates respetuosos y relacionados con el tema según las normas de la Comunidad.\n\nGracias por vuestra comprensión y por ayudar a mantener los foros cordiales y útiles.\n\n— El equipo de la Comunidad eBay',
-    heatedDiscussion: 'Hola a todos,\n\nEsta conversación se ha caldeado. Recordad que está bien no estar de acuerdo, pero el debate debe mantenerse siempre cordial y respetuoso según las normas de la Comunidad.\n\nGracias por vuestra colaboración.',
-    offTopic: 'Hola a todos,\n\nLa conversación se ha desviado del tema. Por favor, volved al tema indicado en el mensaje inicial del hilo.\n\nGracias.',
+    heatedDiscussion: 'Hola a todos,\n\nEsta conversación se ha vuelto un poco acalorada. Recordad que, aunque está bien no estar de acuerdo con otros, el debate siempre debe mantenerse amistoso y respetuoso, tal como exigen las Normas de la Comunidad.\n\nGracias por vuestra colaboración.',
+    offTopic: 'Hola a todos, Esta conversación se ha desviado un poco del tema. Por favor, volved al asunto establecido en la publicación original. Gracias.',
     bullying: 'Eliminado por incumplir las normas de la Comunidad: mantened los debates respetuosos y abiertos. Las opiniones distintas son bienvenidas, pero las conversaciones deben ser cordiales, inclusivas y respetuosas con todos los miembros.',
     giftCardScam: 'Hola a todos. Si crees que tú o alguien que conoces ha sido inducido a comprar tarjetas regalo de eBay, visita nuestra página de tarjetas regalo para contactar con Atención al Cliente y obtener más información sobre fraudes con tarjetas regalo. Gracias.',
-    csRedirect: 'Hola [USUARIO], gracias por reportar contenido inapropiado. Sin embargo, has contactado con el equipo de moderación de la Comunidad eBay. No podemos ayudarte con tu consulta, ya que nos dedicamos exclusivamente a la Comunidad.',
+    csRedirect: 'Hola {{USERNAME}}, gracias por reportar contenido inapropiado. Sin embargo, has contactado con el equipo de moderación de la Comunidad eBay. No podemos ayudarte con tu consulta, ya que nos dedicamos exclusivamente a la Comunidad.',
     gg01: 'Sé respetuoso.',
     gg02: 'Comparte mensajes relevantes.',
     gg03: 'Consecuencias: si los mensajes se desvían del tema, el equipo de la Comunidad eBay puede mover contenidos a su criterio.',
@@ -130,8 +138,10 @@ const ModerationToolSpain = () => {
 
   const templateList: TemplateItem[] = [
     { id: 'removedByMod', name: 'Removed by Moderator', content: '[Eliminado por el moderador]' },
-    { id: 'removePost', name: 'Remove Post', content: templates.removePost, isDynamic: true, type: 'removePost' },
-    { id: 'editPost', name: 'Edit Post', content: templates.editPost, isDynamic: true, type: 'removePost' },
+    { id: 'friendlyEditPost', name: 'Friendly PM: Edited Post', content: templates.friendlyEditPost, isDynamic: true, type: 'editedPost' },
+    { id: 'warningEditPost', name: 'Warning PM: Edited Post', content: templates.warningEditPost, isDynamic: true, type: 'editedPost' },
+    { id: 'friendlyRemovePost', name: 'Friendly PM: Removed Post', content: templates.friendlyRemovePost, isDynamic: true, type: 'removedPost' },
+    { id: 'warningRemovePost', name: 'Warning PM: Removed Post', content: templates.warningRemovePost, isDynamic: true, type: 'removedPost' },
     { id: 'necroThread', name: 'Locking: Necro Thread', content: templates.necroThread },
     { id: 'opRequest', name: 'Locking: OP Request', content: templates.opRequest },
     { id: 'lockingOffTopic', name: 'Locking: Off Topic', content: templates.lockingOffTopic },
@@ -171,8 +181,10 @@ const ModerationToolSpain = () => {
 
   const clearInputs = (templateId: string) => {
     const defaults: Record<string, Record<string, string>> = {
-      removePost: { name: '', topicUrl: '', topic: '', grundsatz: '', beitrag: '' },
-      editPost: { name: '', topicUrl: '', topic: '', grundsatz: '', beitrag: '' },
+      friendlyEditPost: { username: '', title: '', guidelines: '', quote: '' },
+      warningEditPost: { username: '', title: '', guidelines: '', quote: '' },
+      friendlyRemovePost: { username: '', title: '', dateTime: '', guidelines: '', quote: '' },
+      warningRemovePost: { username: '', title: '', dateTime: '', guidelines: '', quote: '' },
       csRedirect: { username: '' },
       banCombined: { banPeriod: '1 Day', reasoning: '', username: '', email: '', ip: '', spamUrl: '', startDate: '' }
     };
@@ -182,16 +194,23 @@ const ModerationToolSpain = () => {
   const getPopulated = (templateId: string, base: string): string => {
     const i = (templateInputs as Record<string, Record<string, string>>)[templateId] || {};
     let p = base;
-    if (templateId === 'removePost' || templateId === 'editPost') {
+    if (templateId === 'friendlyEditPost' || templateId === 'warningEditPost') {
       const baseContent = customTemplates[templateId] ?? templates[templateId];
       p = baseContent
-        .replace(/\[NOMBRE\]/g, i.name || '[NOMBRE]')
-        .replace(/\[URL_TEMA\]/g, i.topicUrl || '[URL_TEMA]')
-        .replace(/\[TEMA\]/g, i.topic || '[TEMA]')
-        .replace(/\[PRINCIPIO_CITAR\]/g, i.grundsatz || '[PRINCIPIO_CITAR]')
-        .replace(/\[CONTENIDO\]/g, i.beitrag || '[CONTENIDO]');
+        .replace(/\{\{USERNAME\}\}/g, i.username || '{{USERNAME}}')
+        .replace(/\{\{TITLE\}\}/g, i.title || '{{TITLE}}')
+        .replace(/\{\{GUIDELINES\}\}/g, i.guidelines || '{{GUIDELINES}}')
+        .replace(/\{\{QUOTE\}\}/g, i.quote || '{{QUOTE}}');
+    } else if (templateId === 'friendlyRemovePost' || templateId === 'warningRemovePost') {
+      const baseContent = customTemplates[templateId] ?? templates[templateId];
+      p = baseContent
+        .replace(/\{\{USERNAME\}\}/g, i.username || '{{USERNAME}}')
+        .replace(/\{\{TITLE\}\}/g, i.title || '{{TITLE}}')
+        .replace(/\{\{DATE_TIME\}\}/g, i.dateTime || '{{DATE_TIME}}')
+        .replace(/\{\{GUIDELINES\}\}/g, i.guidelines || '{{GUIDELINES}}')
+        .replace(/\{\{QUOTE\}\}/g, i.quote || '{{QUOTE}}');
     } else if (templateId === 'csRedirect') {
-      p = templates.csRedirect.replace(/\[USUARIO\]/g, i.username || '[USUARIO]');
+      p = (customTemplates[templateId] ?? templates.csRedirect).replace(/\{\{USERNAME\}\}/g, i.username || '{{USERNAME}}');
     } else if (templateId === 'banCombined') {
       const len = banLenMap[i.banPeriod] || '1 día';
       p = 'Internal Reason\n\n' + i.banPeriod + ' Login Restriction\n\n' +
@@ -233,11 +252,11 @@ const ModerationToolSpain = () => {
   };
   const copyToAdminNotes = (templateId: string) => {
     const i = (templateInputs as Record<string, Record<string, string>>)[templateId] || {};
-    if (templateId === 'removePost') {
-      setAdminNoteInputs(prev => ({ ...prev, removed: { link: i.topicUrl || prev.removed.link, violation: i.grundsatz || '' } }));
+    if (templateId === 'friendlyRemovePost' || templateId === 'warningRemovePost') {
+      setAdminNoteInputs(prev => ({ ...prev, removed: { link: prev.removed.link, violation: i.guidelines || '' } }));
       alert('Copied to Removed Post admin notes!');
-    } else if (templateId === 'editPost') {
-      setAdminNoteInputs(prev => ({ ...prev, edited: { link: i.topicUrl || prev.edited.link, removed: i.beitrag || '', violation: i.grundsatz || '' } }));
+    } else if (templateId === 'friendlyEditPost' || templateId === 'warningEditPost') {
+      setAdminNoteInputs(prev => ({ ...prev, edited: { link: prev.edited.link, removed: i.quote || '', violation: i.guidelines || '' } }));
       alert('Copied to Edited Post admin notes!');
     }
   };
@@ -460,19 +479,27 @@ const ModerationToolSpain = () => {
                               <div className="flex items-center justify-between mb-3">
                                 <div className={`text-sm font-semibold ${text1}`}>Fill fields</div>
                                 <div className="flex gap-2">
-                                  {(t.id === 'removePost' || t.id === 'editPost') && (
+                                  {(t.type === 'editedPost' || t.type === 'removedPost') && (
                                     <button onClick={() => copyToAdminNotes(t.id)} className="flex items-center gap-1 px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded text-xs font-medium">Copy to Admin Notes</button>
                                   )}
                                   <button onClick={() => clearInputs(t.id)} className={`px-3 py-1 rounded text-xs font-medium ${darkMode ? 'bg-slate-700 hover:bg-slate-600 text-slate-200' : 'bg-slate-300 hover:bg-slate-400 text-slate-700'}`}>Clear</button>
                                 </div>
                               </div>
-                              {t.type === 'removePost' && (
+                              {t.type === 'editedPost' && (
                                 <>
-                                  <input type="text" placeholder="NAME" value={getInputsForTemplate(t.id).name || ''} onChange={(e) => updateInput(t.id, 'name', e.target.value)} className={`w-full px-3 py-2 text-sm border rounded ${darkMode ? 'bg-slate-800 border-slate-700 text-slate-200 placeholder-slate-500' : 'bg-white border-slate-300'}`} />
-                                  <input type="text" placeholder="TOPIC_URL" value={getInputsForTemplate(t.id).topicUrl || ''} onChange={(e) => updateInput(t.id, 'topicUrl', e.target.value)} className={`w-full px-3 py-2 text-sm border rounded ${darkMode ? 'bg-slate-800 border-slate-700 text-slate-200 placeholder-slate-500' : 'bg-white border-slate-300'}`} />
-                                  <input type="text" placeholder="TOPIC" value={getInputsForTemplate(t.id).topic || ''} onChange={(e) => updateInput(t.id, 'topic', e.target.value)} className={`w-full px-3 py-2 text-sm border rounded ${darkMode ? 'bg-slate-800 border-slate-700 text-slate-200 placeholder-slate-500' : 'bg-white border-slate-300'}`} />
-                                  <textarea placeholder="QUOTE / PRINCIPLE" value={getInputsForTemplate(t.id).grundsatz || ''} onChange={(e) => updateInput(t.id, 'grundsatz', e.target.value)} rows={3} className={`w-full px-3 py-2 text-sm border rounded ${darkMode ? 'bg-slate-800 border-slate-700 text-slate-200 placeholder-slate-500' : 'bg-white border-slate-300'}`} />
-                                  <textarea placeholder="CONTENT" value={getInputsForTemplate(t.id).beitrag || ''} onChange={(e) => updateInput(t.id, 'beitrag', e.target.value)} rows={3} className={`w-full px-3 py-2 text-sm border rounded ${darkMode ? 'bg-slate-800 border-slate-700 text-slate-200 placeholder-slate-500' : 'bg-white border-slate-300'}`} />
+                                  <input type="text" placeholder="USERNAME" value={getInputsForTemplate(t.id).username || ''} onChange={(e) => updateInput(t.id, 'username', e.target.value)} className={`w-full px-3 py-2 text-sm border rounded ${darkMode ? 'bg-slate-800 border-slate-700 text-slate-200 placeholder-slate-500' : 'bg-white border-slate-300'}`} />
+                                  <input type="text" placeholder="TITLE" value={getInputsForTemplate(t.id).title || ''} onChange={(e) => updateInput(t.id, 'title', e.target.value)} className={`w-full px-3 py-2 text-sm border rounded ${darkMode ? 'bg-slate-800 border-slate-700 text-slate-200 placeholder-slate-500' : 'bg-white border-slate-300'}`} />
+                                  <textarea placeholder="GUIDELINES" value={getInputsForTemplate(t.id).guidelines || ''} onChange={(e) => updateInput(t.id, 'guidelines', e.target.value)} rows={3} className={`w-full px-3 py-2 text-sm border rounded ${darkMode ? 'bg-slate-800 border-slate-700 text-slate-200 placeholder-slate-500' : 'bg-white border-slate-300'}`} />
+                                  <textarea placeholder="QUOTE (removed content)" value={getInputsForTemplate(t.id).quote || ''} onChange={(e) => updateInput(t.id, 'quote', e.target.value)} rows={3} className={`w-full px-3 py-2 text-sm border rounded ${darkMode ? 'bg-slate-800 border-slate-700 text-slate-200 placeholder-slate-500' : 'bg-white border-slate-300'}`} />
+                                </>
+                              )}
+                              {t.type === 'removedPost' && (
+                                <>
+                                  <input type="text" placeholder="USERNAME" value={getInputsForTemplate(t.id).username || ''} onChange={(e) => updateInput(t.id, 'username', e.target.value)} className={`w-full px-3 py-2 text-sm border rounded ${darkMode ? 'bg-slate-800 border-slate-700 text-slate-200 placeholder-slate-500' : 'bg-white border-slate-300'}`} />
+                                  <input type="text" placeholder="TITLE" value={getInputsForTemplate(t.id).title || ''} onChange={(e) => updateInput(t.id, 'title', e.target.value)} className={`w-full px-3 py-2 text-sm border rounded ${darkMode ? 'bg-slate-800 border-slate-700 text-slate-200 placeholder-slate-500' : 'bg-white border-slate-300'}`} />
+                                  <input type="text" placeholder="DATE / TIME" value={getInputsForTemplate(t.id).dateTime || ''} onChange={(e) => updateInput(t.id, 'dateTime', e.target.value)} className={`w-full px-3 py-2 text-sm border rounded ${darkMode ? 'bg-slate-800 border-slate-700 text-slate-200 placeholder-slate-500' : 'bg-white border-slate-300'}`} />
+                                  <textarea placeholder="GUIDELINES" value={getInputsForTemplate(t.id).guidelines || ''} onChange={(e) => updateInput(t.id, 'guidelines', e.target.value)} rows={3} className={`w-full px-3 py-2 text-sm border rounded ${darkMode ? 'bg-slate-800 border-slate-700 text-slate-200 placeholder-slate-500' : 'bg-white border-slate-300'}`} />
+                                  <textarea placeholder="QUOTE (posted content)" value={getInputsForTemplate(t.id).quote || ''} onChange={(e) => updateInput(t.id, 'quote', e.target.value)} rows={3} className={`w-full px-3 py-2 text-sm border rounded ${darkMode ? 'bg-slate-800 border-slate-700 text-slate-200 placeholder-slate-500' : 'bg-white border-slate-300'}`} />
                                 </>
                               )}
                               {t.type === 'username' && (
