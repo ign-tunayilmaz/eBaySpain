@@ -160,7 +160,7 @@ const ModerationToolSpain = () => {
         document.execCommand('copy');
         setCopiedId(id);
         setTimeout(() => setCopiedId(null), 2000);
-      } catch (e) { alert('No se pudo copiar. Copia manualmente:\n\n' + text); }
+      } catch (e) { alert('Copy failed. Please copy manually:\n\n' + text); }
       textArea.remove();
     }
   };
@@ -235,10 +235,10 @@ const ModerationToolSpain = () => {
     const i = (templateInputs as Record<string, Record<string, string>>)[templateId] || {};
     if (templateId === 'removePost') {
       setAdminNoteInputs(prev => ({ ...prev, removed: { link: i.topicUrl || prev.removed.link, violation: i.grundsatz || '' } }));
-      alert('¡Copiado a notas de Mensaje eliminado!');
+      alert('Copied to Removed Post admin notes!');
     } else if (templateId === 'editPost') {
       setAdminNoteInputs(prev => ({ ...prev, edited: { link: i.topicUrl || prev.edited.link, removed: i.beitrag || '', violation: i.grundsatz || '' } }));
-      alert('¡Copiado a notas de Mensaje editado!');
+      alert('Copied to Edited Post admin notes!');
     }
   };
 
@@ -321,12 +321,12 @@ const ModerationToolSpain = () => {
             </div>
             <div className="flex-1">
               <h1 className={`text-3xl font-bold ${text1}`}>eBay Community Moderation <span className="text-yellow-500">🇪🇸 España</span></h1>
-              <p className={text2}>Guía de referencia con plantillas listas para usar</p>
+              <p className={text2}>Quick reference guide with ready-to-use templates</p>
             </div>
             <div className="flex items-center gap-3">
-              <a href="https://community.ebay.es/" target="_blank" rel="noopener noreferrer" className="px-4 py-2 rounded-lg font-semibold text-sm bg-yellow-500 hover:bg-yellow-600 text-white">Ir a eBay ES</a>
+              <a href="https://community.ebay.es/" target="_blank" rel="noopener noreferrer" className="px-4 py-2 rounded-lg font-semibold text-sm bg-yellow-500 hover:bg-yellow-600 text-white">Go to eBay ES</a>
               <button onClick={() => setDarkMode(!darkMode)} className={`px-4 py-2 rounded-lg font-semibold text-sm flex items-center gap-2 ${darkMode ? 'bg-slate-700 hover:bg-slate-600 text-slate-200' : 'bg-slate-200 hover:bg-slate-300 text-slate-700'}`}>
-                {darkMode ? <><Sun className="w-5 h-5" /><span>Claro</span></> : <><Moon className="w-5 h-5" /><span>Oscuro</span></>}
+                {darkMode ? <><Sun className="w-5 h-5" /><span>Light</span></> : <><Moon className="w-5 h-5" /><span>Dark</span></>}
               </button>
             </div>
           </div>
@@ -338,28 +338,28 @@ const ModerationToolSpain = () => {
             <div className="flex items-center gap-3">
               <span className="text-xl">⏱️</span>
               <div>
-                <div className={`text-xs font-semibold uppercase tracking-wide ${text2}`}>Temporizador de turno</div>
+                <div className={`text-xs font-semibold uppercase tracking-wide ${text2}`}>Shift Timer</div>
                 <div className={`text-2xl font-mono font-bold ${timerColor}`}>{formatTime(shiftSeconds)}</div>
                 {shiftStartTime && (
-                  <div className={`text-xs ${text2}`}>Iniciado a las {shiftStartTime.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}</div>
+                  <div className={`text-xs ${text2}`}>Started at {shiftStartTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
                 )}
               </div>
             </div>
             <div className="flex items-center gap-2">
               {shiftSeconds >= WARN_90 && (
-                <span className="text-xs font-semibold text-red-500 bg-red-100 px-2 py-1 rounded-full animate-pulse">⚠️ Objetivo 60 min superado</span>
+                <span className="text-xs font-semibold text-red-500 bg-red-100 px-2 py-1 rounded-full animate-pulse">⚠️ 60 min target exceeded</span>
               )}
               {!shiftRunning && shiftSeconds === 0 && (
-                <button onClick={startShift} className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold text-sm">Iniciar turno</button>
+                <button onClick={startShift} className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold text-sm">Start Shift</button>
               )}
               {shiftRunning && (
-                <button onClick={stopShift} className="px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg font-semibold text-sm">Pausar</button>
+                <button onClick={stopShift} className="px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg font-semibold text-sm">Pause</button>
               )}
               {!shiftRunning && shiftSeconds > 0 && (
-                <button onClick={startShift} className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold text-sm">Reanudar</button>
+                <button onClick={startShift} className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold text-sm">Resume</button>
               )}
               {shiftSeconds > 0 && (
-                <button onClick={resetShift} className={`px-4 py-2 rounded-lg font-semibold text-sm ${darkMode ? 'bg-slate-700 hover:bg-slate-600 text-slate-200' : 'bg-slate-200 hover:bg-slate-300 text-slate-700'}`}>Reiniciar</button>
+                <button onClick={resetShift} className={`px-4 py-2 rounded-lg font-semibold text-sm ${darkMode ? 'bg-slate-700 hover:bg-slate-600 text-slate-200' : 'bg-slate-200 hover:bg-slate-300 text-slate-700'}`}>Reset</button>
               )}
             </div>
           </div>
@@ -372,29 +372,29 @@ const ModerationToolSpain = () => {
           <div className={`flex justify-between text-xs mt-1 ${text2}`}>
             <span>0</span>
             <span>45 min</span>
-            <span>Objetivo 60 min</span>
+            <span>60 min target</span>
           </div>
         </div>
 
         {/* Collapsible Sections */}
         {[
-          { key: 'ban', title: 'Plantillas de baneo', render: () => {
+          { key: 'ban', title: 'Ban Templates', render: () => {
             const ban = templateInputs.banCombined ?? defaultTemplateInputs.banCombined;
             return (
             <div className={`border rounded-lg overflow-hidden ${border}`}>
               <div className={`${darkMode ? 'bg-orange-900' : 'bg-orange-100'} px-3 py-2 flex items-center justify-between border-b ${border}`}>
-                <span className={`text-sm font-semibold ${darkMode ? 'text-orange-100' : 'text-slate-700'}`}>Rellena los datos del baneo</span>
+                <span className={`text-sm font-semibold ${darkMode ? 'text-orange-100' : 'text-slate-700'}`}>Fill ban details</span>
                 <div className="flex gap-2">
-                  <button onClick={() => clearInputs('banCombined')} className={`px-3 py-1 rounded text-xs font-medium ${darkMode ? 'bg-slate-700 hover:bg-slate-600 text-slate-200' : 'bg-slate-300 hover:bg-slate-400 text-slate-700'}`}>Limpiar</button>
-                  <button onClick={() => copy(getPopulated('banCombined', ''), 'banCombined')} className="flex items-center gap-2 px-3 py-1 bg-orange-600 hover:bg-orange-700 text-white rounded text-sm font-medium">{copiedId === 'banCombined' ? <><Check className="w-4 h-4" />Copiado</> : <><Copy className="w-4 h-4" />Copiar</>}</button>
+                  <button onClick={() => clearInputs('banCombined')} className={`px-3 py-1 rounded text-xs font-medium ${darkMode ? 'bg-slate-700 hover:bg-slate-600 text-slate-200' : 'bg-slate-300 hover:bg-slate-400 text-slate-700'}`}>Clear</button>
+                  <button onClick={() => copy(getPopulated('banCombined', ''), 'banCombined')} className="flex items-center gap-2 px-3 py-1 bg-orange-600 hover:bg-orange-700 text-white rounded text-sm font-medium">{copiedId === 'banCombined' ? <><Check className="w-4 h-4" />Copied</> : <><Copy className="w-4 h-4" />Copy</>}</button>
                 </div>
               </div>
               <div className={`${darkMode ? 'bg-slate-900' : 'bg-orange-50'} p-3 space-y-2`}>
                 <select value={ban.banPeriod ?? '1 Day'} onChange={(e) => updateInput('banCombined', 'banPeriod', e.target.value)} className={`w-full px-3 py-2 text-sm border rounded ${darkMode ? 'bg-slate-800 border-slate-700 text-slate-200' : 'bg-white border-slate-300'}`}>
                   {banPeriods.map(p => <option key={p} value={p}>{p}</option>)}
                 </select>
-                <textarea placeholder="Motivo" value={ban.reasoning ?? ''} onChange={(e) => updateInput('banCombined', 'reasoning', e.target.value)} rows={3} className={`w-full px-3 py-2 text-sm border rounded ${darkMode ? 'bg-slate-800 border-slate-700 text-slate-200 placeholder-slate-500' : 'bg-white border-slate-300'}`} />
-                {[{ f: 'username', label: 'Usuario' }, { f: 'email', label: 'Email' }, { f: 'ip', label: 'IP' }, { f: 'spamUrl', label: 'URL spam' }].map(({ f, label }) => (
+                <textarea placeholder="Reasoning" value={ban.reasoning ?? ''} onChange={(e) => updateInput('banCombined', 'reasoning', e.target.value)} rows={3} className={`w-full px-3 py-2 text-sm border rounded ${darkMode ? 'bg-slate-800 border-slate-700 text-slate-200 placeholder-slate-500' : 'bg-white border-slate-300'}`} />
+                {[{ f: 'username', label: 'Username' }, { f: 'email', label: 'Email' }, { f: 'ip', label: 'IP' }, { f: 'spamUrl', label: 'Spam URL' }].map(({ f, label }) => (
                   <input key={f} type="text" placeholder={label} value={ban[f as keyof typeof ban] ?? ''} onChange={(e) => updateInput('banCombined', f, e.target.value)} className={`w-full px-3 py-2 text-sm border rounded ${darkMode ? 'bg-slate-800 border-slate-700 text-slate-200 placeholder-slate-500' : 'bg-white border-slate-300'}`} />
                 ))}
                 <input type="date" value={ban.startDate ?? ''} onChange={(e) => updateInput('banCombined', 'startDate', e.target.value)} className={`w-full px-3 py-2 text-sm border rounded ${darkMode ? 'bg-slate-800 border-slate-700 text-slate-200' : 'bg-white border-slate-300'}`} />
@@ -403,9 +403,9 @@ const ModerationToolSpain = () => {
             </div>
             );
           }},
-          { key: 'templates', title: 'Plantillas adicionales', render: () => (
+          { key: 'templates', title: 'Additional Templates', render: () => (
             <>
-              <div className="mb-3"><input type="text" placeholder="Buscar plantillas..." value={templateSearch} onChange={(e) => setTemplateSearch(e.target.value)} className={`w-full px-3 py-2 text-sm border rounded ${darkMode ? 'bg-slate-900 border-slate-700 text-slate-200 placeholder-slate-500' : 'bg-white border-slate-300'}`} /></div>
+              <div className="mb-3"><input type="text" placeholder="Search templates..." value={templateSearch} onChange={(e) => setTemplateSearch(e.target.value)} className={`w-full px-3 py-2 text-sm border rounded ${darkMode ? 'bg-slate-900 border-slate-700 text-slate-200 placeholder-slate-500' : 'bg-white border-slate-300'}`} /></div>
               <div className="space-y-2">
                 {templateList.filter(t => t.name.toLowerCase().includes(templateSearch.toLowerCase())).map((t) => {
                   const isExp = expandedTemplates[t.id] === true;
@@ -418,19 +418,19 @@ const ModerationToolSpain = () => {
                       <div className={`${darkMode ? 'bg-slate-700' : 'bg-slate-100'} px-3 py-2 flex items-center justify-between border-b ${border}`}>
                         <div className="flex items-center gap-2">
                           <span className={`text-sm font-semibold ${text1}`}>{t.name}</span>
-                          {isCustomized && <span className="text-xs px-1.5 py-0.5 rounded bg-yellow-500 text-white font-medium">Editado</span>}
+                          {isCustomized && <span className="text-xs px-1.5 py-0.5 rounded bg-yellow-500 text-white font-medium">Edited</span>}
                         </div>
                         <div className="flex gap-2">
                           <button
                             onClick={() => isEditing ? cancelEdit() : startEditing(t.id, currentContent)}
                             className={`flex items-center gap-1 px-3 py-1 rounded text-xs font-medium ${isEditing ? 'bg-red-500 hover:bg-red-600 text-white' : darkMode ? 'bg-slate-500 hover:bg-slate-400 text-white' : 'bg-slate-400 hover:bg-slate-500 text-white'}`}
                           >
-                            {isEditing ? <><X className="w-3 h-3" />Cancelar</> : <><Pencil className="w-3 h-3" />Editar</>}
+                            {isEditing ? <><X className="w-3 h-3" />Cancel</> : <><Pencil className="w-3 h-3" />Edit</>}
                           </button>
-                          <button onClick={() => copy(pop || currentContent, t.id)} className="flex items-center gap-2 px-3 py-1 bg-green-600 hover:bg-green-700 text-white rounded text-sm font-medium">{copiedId === t.id ? <><Check className="w-4 h-4" />Copiado</> : <><Copy className="w-4 h-4" />Copiar</>}</button>
+                          <button onClick={() => copy(pop || currentContent, t.id)} className="flex items-center gap-2 px-3 py-1 bg-green-600 hover:bg-green-700 text-white rounded text-sm font-medium">{copiedId === t.id ? <><Check className="w-4 h-4" />Copied</> : <><Copy className="w-4 h-4" />Copy</>}</button>
                           <button onClick={() => setExpandedTemplates({...expandedTemplates, [t.id]: !isExp})} className={`flex items-center gap-1 px-3 py-1 rounded text-sm font-medium ${darkMode ? 'bg-slate-600 hover:bg-slate-500 text-slate-200' : 'bg-slate-200 hover:bg-slate-300 text-slate-700'}`}>
                             <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isExp ? 'rotate-180' : ''}`} />
-                            {isExp ? 'Ocultar' : 'Ver'}
+                            {isExp ? 'Hide' : 'Show'}
                           </button>
                         </div>
                       </div>
@@ -439,7 +439,7 @@ const ModerationToolSpain = () => {
                         <>
                           {isEditing && (
                             <div className={`${darkMode ? 'bg-slate-900' : 'bg-yellow-50'} p-4 border-b ${border} space-y-3`}>
-                              <div className={`text-xs font-semibold uppercase tracking-wide ${darkMode ? 'text-yellow-400' : 'text-yellow-700'}`}>✏️ Editando contenido de la macro</div>
+                              <div className={`text-xs font-semibold uppercase tracking-wide ${darkMode ? 'text-yellow-400' : 'text-yellow-700'}`}>✏️ Editing macro content</div>
                               <textarea
                                 value={editDraft}
                                 onChange={(e) => setEditDraft(e.target.value)}
@@ -447,9 +447,9 @@ const ModerationToolSpain = () => {
                                 className={`w-full px-3 py-2 text-sm border-2 rounded font-mono ${darkMode ? 'bg-slate-800 border-yellow-500 text-slate-200' : 'bg-white border-yellow-400 text-slate-800'}`}
                               />
                               <div className="flex gap-2">
-                                <button onClick={() => saveEdit(t.id)} className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded text-sm font-semibold">Guardar</button>
-                                <button onClick={cancelEdit} className={`px-4 py-2 rounded text-sm font-semibold ${darkMode ? 'bg-slate-700 hover:bg-slate-600 text-slate-200' : 'bg-slate-200 hover:bg-slate-300 text-slate-700'}`}>Cancelar</button>
-                                {isCustomized && <button onClick={() => resetToDefault(t.id, t.content)} className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded text-sm font-semibold">Restaurar por defecto</button>}
+                                <button onClick={() => saveEdit(t.id)} className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded text-sm font-semibold">Save</button>
+                                <button onClick={cancelEdit} className={`px-4 py-2 rounded text-sm font-semibold ${darkMode ? 'bg-slate-700 hover:bg-slate-600 text-slate-200' : 'bg-slate-200 hover:bg-slate-300 text-slate-700'}`}>Cancel</button>
+                                {isCustomized && <button onClick={() => resetToDefault(t.id, t.content)} className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded text-sm font-semibold">Reset to Default</button>}
                               </div>
                             </div>
                           )}
@@ -457,25 +457,25 @@ const ModerationToolSpain = () => {
                           {!isEditing && t.isDynamic && (
                             <div className={`${darkMode ? 'bg-slate-900' : 'bg-slate-50'} p-4 border-b ${border} space-y-3`}>
                               <div className="flex items-center justify-between mb-3">
-                                <div className={`text-sm font-semibold ${text1}`}>Rellena los campos</div>
+                                <div className={`text-sm font-semibold ${text1}`}>Fill fields</div>
                                 <div className="flex gap-2">
                                   {(t.id === 'removePost' || t.id === 'editPost') && (
-                                    <button onClick={() => copyToAdminNotes(t.id)} className="flex items-center gap-1 px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded text-xs font-medium">Copiar a notas admin</button>
+                                    <button onClick={() => copyToAdminNotes(t.id)} className="flex items-center gap-1 px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded text-xs font-medium">Copy to Admin Notes</button>
                                   )}
-                                  <button onClick={() => clearInputs(t.id)} className={`px-3 py-1 rounded text-xs font-medium ${darkMode ? 'bg-slate-700 hover:bg-slate-600 text-slate-200' : 'bg-slate-300 hover:bg-slate-400 text-slate-700'}`}>Limpiar</button>
+                                  <button onClick={() => clearInputs(t.id)} className={`px-3 py-1 rounded text-xs font-medium ${darkMode ? 'bg-slate-700 hover:bg-slate-600 text-slate-200' : 'bg-slate-300 hover:bg-slate-400 text-slate-700'}`}>Clear</button>
                                 </div>
                               </div>
                               {t.type === 'removePost' && (
                                 <>
-                                  <input type="text" placeholder="NOMBRE" value={getInputsForTemplate(t.id).name || ''} onChange={(e) => updateInput(t.id, 'name', e.target.value)} className={`w-full px-3 py-2 text-sm border rounded ${darkMode ? 'bg-slate-800 border-slate-700 text-slate-200 placeholder-slate-500' : 'bg-white border-slate-300'}`} />
-                                  <input type="text" placeholder="URL_TEMA" value={getInputsForTemplate(t.id).topicUrl || ''} onChange={(e) => updateInput(t.id, 'topicUrl', e.target.value)} className={`w-full px-3 py-2 text-sm border rounded ${darkMode ? 'bg-slate-800 border-slate-700 text-slate-200 placeholder-slate-500' : 'bg-white border-slate-300'}`} />
-                                  <input type="text" placeholder="TEMA" value={getInputsForTemplate(t.id).topic || ''} onChange={(e) => updateInput(t.id, 'topic', e.target.value)} className={`w-full px-3 py-2 text-sm border rounded ${darkMode ? 'bg-slate-800 border-slate-700 text-slate-200 placeholder-slate-500' : 'bg-white border-slate-300'}`} />
-                                  <textarea placeholder="PRINCIPIO_CITAR" value={getInputsForTemplate(t.id).grundsatz || ''} onChange={(e) => updateInput(t.id, 'grundsatz', e.target.value)} rows={3} className={`w-full px-3 py-2 text-sm border rounded ${darkMode ? 'bg-slate-800 border-slate-700 text-slate-200 placeholder-slate-500' : 'bg-white border-slate-300'}`} />
-                                  <textarea placeholder="CONTENIDO" value={getInputsForTemplate(t.id).beitrag || ''} onChange={(e) => updateInput(t.id, 'beitrag', e.target.value)} rows={3} className={`w-full px-3 py-2 text-sm border rounded ${darkMode ? 'bg-slate-800 border-slate-700 text-slate-200 placeholder-slate-500' : 'bg-white border-slate-300'}`} />
+                                  <input type="text" placeholder="NAME" value={getInputsForTemplate(t.id).name || ''} onChange={(e) => updateInput(t.id, 'name', e.target.value)} className={`w-full px-3 py-2 text-sm border rounded ${darkMode ? 'bg-slate-800 border-slate-700 text-slate-200 placeholder-slate-500' : 'bg-white border-slate-300'}`} />
+                                  <input type="text" placeholder="TOPIC_URL" value={getInputsForTemplate(t.id).topicUrl || ''} onChange={(e) => updateInput(t.id, 'topicUrl', e.target.value)} className={`w-full px-3 py-2 text-sm border rounded ${darkMode ? 'bg-slate-800 border-slate-700 text-slate-200 placeholder-slate-500' : 'bg-white border-slate-300'}`} />
+                                  <input type="text" placeholder="TOPIC" value={getInputsForTemplate(t.id).topic || ''} onChange={(e) => updateInput(t.id, 'topic', e.target.value)} className={`w-full px-3 py-2 text-sm border rounded ${darkMode ? 'bg-slate-800 border-slate-700 text-slate-200 placeholder-slate-500' : 'bg-white border-slate-300'}`} />
+                                  <textarea placeholder="QUOTE / PRINCIPLE" value={getInputsForTemplate(t.id).grundsatz || ''} onChange={(e) => updateInput(t.id, 'grundsatz', e.target.value)} rows={3} className={`w-full px-3 py-2 text-sm border rounded ${darkMode ? 'bg-slate-800 border-slate-700 text-slate-200 placeholder-slate-500' : 'bg-white border-slate-300'}`} />
+                                  <textarea placeholder="CONTENT" value={getInputsForTemplate(t.id).beitrag || ''} onChange={(e) => updateInput(t.id, 'beitrag', e.target.value)} rows={3} className={`w-full px-3 py-2 text-sm border rounded ${darkMode ? 'bg-slate-800 border-slate-700 text-slate-200 placeholder-slate-500' : 'bg-white border-slate-300'}`} />
                                 </>
                               )}
                               {t.type === 'username' && (
-                                <input type="text" placeholder="USUARIO" value={getInputsForTemplate(t.id).username || ''} onChange={(e) => updateInput(t.id, 'username', e.target.value)} className={`w-full px-3 py-2 text-sm border rounded ${darkMode ? 'bg-slate-800 border-slate-700 text-slate-200 placeholder-slate-500' : 'bg-white border-slate-300'}`} />
+                                <input type="text" placeholder="USERNAME" value={getInputsForTemplate(t.id).username || ''} onChange={(e) => updateInput(t.id, 'username', e.target.value)} className={`w-full px-3 py-2 text-sm border rounded ${darkMode ? 'bg-slate-800 border-slate-700 text-slate-200 placeholder-slate-500' : 'bg-white border-slate-300'}`} />
                               )}
                             </div>
                           )}
@@ -489,24 +489,24 @@ const ModerationToolSpain = () => {
               </div>
             </>
           )},
-          { key: 'admin', title: 'Notas de administración', render: () => {
+          { key: 'admin', title: 'Admin Notes', render: () => {
             const edited = adminNoteInputs?.edited ?? defaultAdminNoteInputs.edited;
             const removed = adminNoteInputs?.removed ?? defaultAdminNoteInputs.removed;
             return (
             <div className={`space-y-6 pt-3 border-t ${border}`}>
-              {[{ id: 'edited' as const, title: 'Mensaje editado', data: edited }, { id: 'removed' as const, title: 'Mensaje eliminado', data: removed }].map(n => (
+              {[{ id: 'edited' as const, title: 'Edited Post', data: edited }, { id: 'removed' as const, title: 'Removed Post', data: removed }].map(n => (
                 <div key={n.id}>
                   <div className="flex items-center justify-between mb-3">
                     <h4 className={`text-sm font-semibold ${text1}`}>{n.title}</h4>
                     <div className="flex gap-2">
-                      <button onClick={() => clearAdminNotes(n.id)} className={`px-3 py-1 rounded text-xs font-medium ${darkMode ? 'bg-slate-700 hover:bg-slate-600 text-slate-200' : 'bg-slate-300 hover:bg-slate-400 text-slate-700'}`}>Limpiar</button>
-                      <button onClick={() => copy(getAdminNote(n.id), 'admin-' + n.id)} className="flex items-center gap-2 px-3 py-1 bg-green-600 hover:bg-green-700 text-white rounded text-sm font-medium">{copiedId === 'admin-' + n.id ? <><Check className="w-4 h-4" />Copiado</> : <><Copy className="w-4 h-4" />Copiar</>}</button>
+                      <button onClick={() => clearAdminNotes(n.id)} className={`px-3 py-1 rounded text-xs font-medium ${darkMode ? 'bg-slate-700 hover:bg-slate-600 text-slate-200' : 'bg-slate-300 hover:bg-slate-400 text-slate-700'}`}>Clear</button>
+                      <button onClick={() => copy(getAdminNote(n.id), 'admin-' + n.id)} className="flex items-center gap-2 px-3 py-1 bg-green-600 hover:bg-green-700 text-white rounded text-sm font-medium">{copiedId === 'admin-' + n.id ? <><Check className="w-4 h-4" />Copied</> : <><Copy className="w-4 h-4" />Copy</>}</button>
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <input type="text" placeholder="Enlace al mensaje" value={n.data.link ?? ''} onChange={(e) => updateAdminNote(n.id, 'link', e.target.value)} className={`w-full px-3 py-2 text-sm border rounded ${darkMode ? 'bg-slate-900 border-slate-700 text-slate-200 placeholder-slate-500' : 'bg-white border-slate-300'}`} />
-                    {n.id === 'edited' && <input type="text" placeholder="Parte eliminada" value={n.data.removed ?? ''} onChange={(e) => updateAdminNote(n.id, 'removed', e.target.value)} className={`w-full px-3 py-2 text-sm border rounded ${darkMode ? 'bg-slate-900 border-slate-700 text-slate-200 placeholder-slate-500' : 'bg-white border-slate-300'}`} />}
-                    <input type="text" placeholder="Incumplimiento de norma" value={n.data.violation ?? ''} onChange={(e) => updateAdminNote(n.id, 'violation', e.target.value)} className={`w-full px-3 py-2 text-sm border rounded ${darkMode ? 'bg-slate-900 border-slate-700 text-slate-200 placeholder-slate-500' : 'bg-white border-slate-300'}`} />
+                    <input type="text" placeholder="Link to post" value={n.data.link ?? ''} onChange={(e) => updateAdminNote(n.id, 'link', e.target.value)} className={`w-full px-3 py-2 text-sm border rounded ${darkMode ? 'bg-slate-900 border-slate-700 text-slate-200 placeholder-slate-500' : 'bg-white border-slate-300'}`} />
+                    {n.id === 'edited' && <input type="text" placeholder="Removed portion" value={n.data.removed ?? ''} onChange={(e) => updateAdminNote(n.id, 'removed', e.target.value)} className={`w-full px-3 py-2 text-sm border rounded ${darkMode ? 'bg-slate-900 border-slate-700 text-slate-200 placeholder-slate-500' : 'bg-white border-slate-300'}`} />}
+                    <input type="text" placeholder="Rule violation" value={n.data.violation ?? ''} onChange={(e) => updateAdminNote(n.id, 'violation', e.target.value)} className={`w-full px-3 py-2 text-sm border rounded ${darkMode ? 'bg-slate-900 border-slate-700 text-slate-200 placeholder-slate-500' : 'bg-white border-slate-300'}`} />
                     <div className={`rounded-lg p-3 border ${darkMode ? 'bg-slate-900 border-slate-700' : 'bg-slate-50 border-slate-200'}`}><pre className={`text-xs whitespace-pre-wrap font-mono ${text2}`}>{getAdminNote(n.id)}</pre></div>
                   </div>
                 </div>
@@ -519,7 +519,7 @@ const ModerationToolSpain = () => {
             <button onClick={() => setShowSection({...showSection, [s.key]: !showSection[s.key as keyof typeof showSection]})} className="w-full flex items-center justify-between mb-3">
               <h3 className={`font-semibold ${text1}`}>{s.title}</h3>
               <div className="flex items-center gap-2">
-                <span className={`text-sm ${text2}`}>{showSection[s.key as keyof typeof showSection] ? 'Ocultar' : 'Ver'}</span>
+                <span className={`text-sm ${text2}`}>{showSection[s.key as keyof typeof showSection] ? 'Hide' : 'Show'}</span>
                 <ChevronDown className={`w-5 h-5 ${text2} transition-transform duration-200 ${showSection[s.key as keyof typeof showSection] ? 'rotate-180' : ''}`} />
               </div>
             </button>
@@ -532,24 +532,24 @@ const ModerationToolSpain = () => {
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <span className="text-xl">📝</span>
-              <h3 className={`font-semibold ${text1}`}>Notas del turno</h3>
+              <h3 className={`font-semibold ${text1}`}>Shift Notes</h3>
             </div>
-            <button onClick={() => setNotepad('')} className={`px-3 py-1 rounded text-xs font-medium ${darkMode ? 'bg-slate-700 hover:bg-slate-600 text-slate-200' : 'bg-slate-200 hover:bg-slate-300 text-slate-700'}`}>Limpiar</button>
+            <button onClick={() => setNotepad('')} className={`px-3 py-1 rounded text-xs font-medium ${darkMode ? 'bg-slate-700 hover:bg-slate-600 text-slate-200' : 'bg-slate-200 hover:bg-slate-300 text-slate-700'}`}>Clear</button>
           </div>
           <textarea
             value={notepad}
             onChange={(e) => setNotepad(e.target.value)}
-            placeholder="Anota usuarios a vigilar, escalaciones pendientes, recordatorios..."
+            placeholder="Jot down usernames to watch, pending escalations, reminders..."
             rows={6}
             className={`w-full px-3 py-2 text-sm border rounded resize-y ${darkMode ? 'bg-slate-900 border-slate-700 text-slate-200 placeholder-slate-500' : 'bg-slate-50 border-slate-300 text-slate-800 placeholder-slate-400'}`}
           />
-          <p className={`text-xs mt-1 ${text2}`}>Las notas se guardan automáticamente y se mantienen hasta que las borres.</p>
+          <p className={`text-xs mt-1 ${text2}`}>Notes are saved automatically and persist until cleared.</p>
         </div>
 
         {/* Footer */}
         <div className={`rounded-lg shadow p-4 text-center text-sm ${card} ${text2} border ${border}`}>
-          <p>Contacto: <a href="mailto:tuna.yilmaz@ignitetech.com" className="text-yellow-500 underline">tuna.yilmaz@ignitetech.com</a></p>
-          <p className="mt-2 text-xs">Versión 1.0.0 - eBay España 🇪🇸</p>
+          <p>Contact: <a href="mailto:tuna.yilmaz@ignitetech.com" className="text-yellow-500 underline">tuna.yilmaz@ignitetech.com</a></p>
+          <p className="mt-2 text-xs">Version 1.0.0 - eBay España 🇪🇸</p>
         </div>
 
       </div>
